@@ -1,4 +1,4 @@
-@doop/service-{{FIXME}}
+@doop/table
 ==================
 
-A {{FIXME}} service for the [Doop framework](https://github.com/MomsFriendlyDevCo/Doop).
+A table service for the [Doop framework](https://github.com/MomsFriendlyDevCo/Doop).
