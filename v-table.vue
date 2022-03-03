@@ -262,6 +262,7 @@ app.component('vTable', {
 				$debug('autoResetPagination');
 				this.endpointPage = 1;
 			}
+			// FIXME: Duplicate of refresh in $watchAll?
 			this.refresh();
 		},
 		limit: {
@@ -269,12 +270,14 @@ app.component('vTable', {
 			handler() {
 				this.endpointPage = 1;
 				this.endpointLimit = this.limit;
+				// FIXME: Duplicate of refresh in $watchAll?
 				this.refresh();
 			},
 		},
 	},
 	created() {
 		$debug.enable(false);
+		// FIXME: Do we even need to refresh by watching "columns"? They're only involved in "sort" options, not "select" options
 		this.$watchAll(['url', 'limit', 'columns'], this.refresh, {immediate: true, deep: true});
 
 		// FIXME: If passed a `url` with `sort` defined this may result in 2 sort params being added.
