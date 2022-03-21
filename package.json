@@ -1,6 +1,6 @@
 {
   "name": "@doop/table",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A table service for the Doop framework",
   "repository": {
     "type": "git",
