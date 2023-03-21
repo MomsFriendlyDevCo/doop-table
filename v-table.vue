@@ -9,6 +9,7 @@ const $debug = Debug('@doop/table').enable(false);
 * Customizable table component with auto data retrieval, pagnination and searching
 *
 * @param {string|Object} url Doop / Monoxide ReST endpoint to connect to, if this is a plain object its assumed to be an Axios compatible request (including a 'url' key) to merge with computed properties such as filters, sorting, pagination
+* @param {Function} [dataDecorate] Optional function to run the retrieved data through before use, useful to add meta fields
 * @param {string} [sort] Field to sort by, if omitted the rowKey is used instead
 * @param {boolean} [sortAsc=true] When sorting, sort ascending (A-Z)
 * @param {number} [limit=30] How many records to show per page
@@ -76,6 +77,7 @@ app.component('vTable', {
 	}},
 	props: {
 		url: {type: [String, Object], required: true},
+		dataDecorate: {type: Function},
 		sort: {type: String},
 		sortAsc: {type: Boolean, default: true},
 		limit: {type: Number, default: 30},
@@ -162,7 +164,8 @@ app.component('vTable', {
 					return Promise.all([
 						// Fetch matching rows
 						this.$http({...req, url: endpointQuery.toString()})
-							.then(res => this.rows = res.data),
+							.then(({data}) => this.dataDecorate ? this.dataDecorate(data) : data)
+							.then(data => this.rows = data),
 
 						// Count potencial rows (i.e. the count based on query)
 						this.$http({
