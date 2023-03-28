@@ -293,7 +293,7 @@ app.component('vTable', {
 <template>
 	<div v-bind="$attrs" class="v-table" :class="layout == 'card' && 'card'">
 		<!-- Header {{{ -->
-		<div :class="layout == 'card' && 'card-header'">
+		<div v-if="layout != 'card' || $slots['table-header'] || $slots['table-header-left'] || $slots['table-header-center'] || $slots['table-header-right']" :class="layout == 'card' && 'card-header'">
 			<slot name="table-header">
 				<div class="v-table-header">
 					<slot name="table-header-left"/>
